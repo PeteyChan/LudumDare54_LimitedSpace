@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4wfpu1nii1uo"]
+[gd_scene load_steps=6 format=3 uid="uid://c4wfpu1nii1uo"]
 
-[ext_resource type="Script" path="res://Assets/Player/player.cs" id="1_1ch4y"]
+[ext_resource type="Script" path="res://Assets/Player/player.cs" id="1_isbld"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3f5sp"]
+radius = 0.54163
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hyjs"]
 albedo_color = Color(0, 0.133333, 1, 1)
@@ -8,6 +11,27 @@ albedo_color = Color(0, 0.133333, 1, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_jlonh"]
 material = SubResource("StandardMaterial3D_3hyjs")
 
-[node name="Player" type="MeshInstance3D"]
+[sub_resource type="BoxMesh" id="BoxMesh_ty2af"]
+
+[node name="player" type="RigidBody3D"]
+transform = Transform3D(1, -1.67347e-09, 0, 1.29148e-10, 1, 0, 0, 0, 1, 0, 0, 0)
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource("1_isbld")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 1.87356e-10, 0, 1.2551e-10, 1, 0, 0, -4.65661e-10, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_3f5sp")
+
+[node name="Player" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 1.63709e-11, 1.2551e-10, -4.37722e-08, 1, 0, -1, -4.42378e-08, 0, 0, 0)
 mesh = SubResource("BoxMesh_jlonh")
-script = ExtResource("1_1ch4y")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(0.328036, 3.49246e-10, -3.67663e-09, -6.98492e-10, 0.328036, -1.16415e-10, -9.004e-10, 3.49246e-10, 0.328036, -0.00959338, 0.00375703, 0.797477)
+mesh = SubResource("BoxMesh_ty2af")

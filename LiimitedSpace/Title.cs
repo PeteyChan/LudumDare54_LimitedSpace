@@ -16,7 +16,7 @@ public partial class Title : Node3D
     public override void _Process(double delta)
     {
         if (title_menu.Button("Start Game"))
-            Scene.Load("res://Testing/Test.tscn");
+            GameScenes.Game.Load();
         if (title_menu.Button("QuitGame"))
             this.GetTree().Quit();
     }

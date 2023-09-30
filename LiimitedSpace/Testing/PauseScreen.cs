@@ -35,7 +35,7 @@ public partial class PauseScreen : PanelContainer
             }
             if (menu.Button("Exit to Main Menu"))
             {
-                Scene.Load("res://Scenes/Title/Title.tscn");
+                GameScenes.Title.Load();
                 this.GetTree().Paused = false;
             }
 

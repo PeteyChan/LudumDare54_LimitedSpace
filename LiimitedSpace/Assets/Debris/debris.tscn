@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://brl8tdknxbvyk"]
+
+[ext_resource type="Script" path="res://Assets/Debris/debris.cs" id="1_le3av"]
+[ext_resource type="Texture2D" uid="uid://imj1sy6dfu51" path="res://Assets/Debris/DebrisA.png" id="2_b1ylv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ke8ci"]
+
+[node name="Debris" type="RigidBody3D"]
+transform = Transform3D(1, -9.10404e-09, 0, 1.29148e-10, 1, -9.31323e-10, 0, 1.39698e-09, 1, 0, 0, 0)
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 10.0
+gravity_scale = 0.0
+can_sleep = false
+freeze_mode = 1
+angular_velocity = Vector3(0.0872665, 0, 0)
+constant_force = Vector3(-1, 0, 0)
+constant_torque = Vector3(0, 0, 1)
+script = ExtResource("1_le3av")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 1.87356e-10, 0, 1.2551e-10, 1, 0, -2.58494e-26, -4.65661e-10, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ke8ci")
+
+[node name="Sprite3D" type="Sprite3D" parent="CollisionShape3D"]
+transform = Transform3D(0.442864, -8.29732e-11, 0, -5.55839e-11, 0.442864, 0, -2.58833e-20, 2.06225e-10, 0.442864, 0, 0, 0)
+texture = ExtResource("2_b1ylv")

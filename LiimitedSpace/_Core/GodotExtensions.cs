@@ -143,10 +143,6 @@ public static partial class GameExtensions
         return button;
     }
 
-
-
-
-
     public static T AddChild<T>(this T node, string resource_path) where T : Godot.Node
     {
         node.AddChild(GD.Load<PackedScene>(resource_path).Instantiate());

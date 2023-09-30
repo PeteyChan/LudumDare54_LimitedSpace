@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://enwcan801mc8"]
+
+[node name="Spawner" type="Node3D"]
+transform = Transform3D(1, -1.67347e-09, 0, -8.36735e-10, 1, 0, 0, 0, 1, 12.226, 0.146846, -0.0486382)
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, -1.66801e-09, 0, -1.76988e-09, 1, 0, 0, 9.31323e-10, 1, -0.0476255, 3.959, -0.0186516)
+
+[node name="Node3D2" type="Node3D" parent="."]
+transform = Transform3D(1, -3.52702e-09, 0, -3.63616e-09, 1, 0, 0, 1.86265e-09, 1, 0.0562153, -4.67303, 0.0220155)
