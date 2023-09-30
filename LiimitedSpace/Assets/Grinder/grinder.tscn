@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5muo6gnw016d"]
+[gd_scene load_steps=5 format=3 uid="uid://c5muo6gnw016d"]
+
+[ext_resource type="Script" path="res://Assets/Grinder/Grinder.cs" id="1_0a75x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i7m2d"]
 size = Vector3(1, 16.641, 1)
@@ -11,6 +13,7 @@ albedo_color = Color(1, 0, 0, 1)
 
 [node name="Grinder" type="AnimatableBody3D"]
 transform = Transform3D(0.999999, -1.37807e-08, 0, -7.37055e-09, 1, 0, 0, 0, 1, -13.1301, -0.157705, 0.0522351)
+script = ExtResource("1_0a75x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_i7m2d")

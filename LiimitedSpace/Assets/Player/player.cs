@@ -17,13 +17,18 @@ public partial class player : RigidBody3D
 
         BodyEntered += (body) =>
         {
-            if (body is grinder)
+            switch (body)
             {
-                switch (state.current)
-                {
-                    case PlayerStates.Death: break;
-                    default: state.next = PlayerStates.Death; break;
-                }
+                case Grinder:
+                    if (state.current is not PlayerStates.Death)
+                        state.next = PlayerStates.Death;
+                    break;
+
+                case Debris debris:
+                    if (debris.Mass > 15)
+                        SFX.HeavyImpact.Play(Position);
+                    else SFX.LightImpact.Play(Position);
+                    break;
             }
         };
     }
@@ -31,6 +36,8 @@ public partial class player : RigidBody3D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double _delta)
     {
+        Debug.Label(LinearVelocity.Length()).SetColor(Colors.Black);
+
         var delta = (float)_delta;
         Debug.DrawArrow3D(GlobalPosition, player_mesh.GlobalTransform.GetForward(), Colors.Yellow);
 

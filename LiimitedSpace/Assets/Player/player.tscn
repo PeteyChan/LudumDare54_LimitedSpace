@@ -35,3 +35,6 @@ skeleton = NodePath("../..")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(0.328036, 3.49246e-10, -3.67663e-09, -6.98492e-10, 0.328036, -1.16415e-10, -9.004e-10, 3.49246e-10, 0.328036, -0.00959338, 0.00375703, 0.797477)
 mesh = SubResource("BoxMesh_ty2af")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+current = true

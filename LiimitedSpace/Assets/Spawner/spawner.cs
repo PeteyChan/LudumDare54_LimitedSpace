@@ -34,6 +34,7 @@ public partial class spawner : Node3D
 			timer = System.Random.Shared.Range(min, max);
             var debris = item.Duplicate().AddToScene() as RigidBody3D;
             debris.Position = Position + new Vector3(0, System.Random.Shared.Range(-variance, variance), 0);
+			debris.LinearVelocity = Vector3.Left;
         }
         timer -= (float)delta;
     }
