@@ -16,7 +16,7 @@ public static partial class Debug // console
         static void Init(Bootstrap.Ready args)
         {
             var tree = (SceneTree)Godot.Engine.GetMainLoop();
-            tree.Root.CallDeferred("add_child", new Console_Impl { Name = "Debug Console" }, false, (int)Godot.Node.InternalMode.Front);
+            tree.Root.CallDeferred("add_child", new Console_Impl { Name = "Debug Console", ProcessMode = Node.ProcessModeEnum.Always }, false, (int)Godot.Node.InternalMode.Front);
         }
 
         IEnumerator<string> IEnumerable<string>.GetEnumerator()

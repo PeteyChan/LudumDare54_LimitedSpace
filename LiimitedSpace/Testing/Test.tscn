@@ -12,6 +12,7 @@ shading_mode = 0
 albedo_texture = ExtResource("1_ns0n7")
 
 [node name="Node3D" type="Node3D"]
+transform = Transform3D(0.99992, 0.01201, -0.00397795, -0.0120287, 0.999917, -0.00471079, 0.00392103, 0.00475827, 0.999981, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 5.96046e-08, 0, -5.96046e-08, 1, 0, 0, 8.02117)

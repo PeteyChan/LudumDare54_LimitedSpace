@@ -11,7 +11,6 @@ public partial class PauseScreen : PanelContainer
             Debug.LogError("Failed to find Pause menu");
     }
 
-
     IMGUI_VBoxContainer menu;
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,7 +34,10 @@ public partial class PauseScreen : PanelContainer
                 Visible = false;
             }
             if (menu.Button("Exit to Main Menu"))
+            {
                 Scene.Load("res://Scenes/Title/Title.tscn");
+                this.GetTree().Paused = false;
+            }
 
         }
     }

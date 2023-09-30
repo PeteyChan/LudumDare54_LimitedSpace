@@ -308,6 +308,11 @@ public static partial class InputSystem
 
     partial class Input_Implemntation : Godot.Node
     {
+        public Input_Implemntation()
+        {
+            this.ProcessMode = ProcessModeEnum.Always;
+        }
+
         public Impl physics = new();
         public Impl process = new();
 

@@ -172,7 +172,7 @@ public static partial class Debug
                 });
 
                 ((SceneTree)Godot.Engine.GetMainLoop())
-                    .Root.AddChild(scroll, false, Node.InternalMode.Back );
+                    .Root.AddChild(scroll, false, Node.InternalMode.Front );
             }
             return immediate_container;
         }
