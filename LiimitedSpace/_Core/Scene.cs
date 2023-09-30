@@ -8,9 +8,10 @@ public static partial class Scene
         get => _current = Godot.Node.IsInstanceValid(_current) ? _current : Tree.CurrentScene;
         set
         {
-            if (value == _current) return;
+            if (value == Current) return;
             Tree.Root.AddChild(value);
-            _current.QueueFree();
+            if (Godot.Node.IsInstanceValid(Current))
+                Current?.QueueFree();
             _current = value;
         }
     }

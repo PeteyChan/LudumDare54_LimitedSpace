@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhcj2o82dl8lh"]
+[gd_scene load_steps=7 format=3 uid="uid://dhcj2o82dl8lh"]
 
 [ext_resource type="Texture2D" uid="uid://c1doak7b7pb6g" path="res://Testing/00000.png" id="1_ns0n7"]
 [ext_resource type="PackedScene" uid="uid://c4wfpu1nii1uo" path="res://Assets/Player/player.tscn" id="2_senv6"]
+[ext_resource type="Script" path="res://Testing/PauseScreen.cs" id="3_lnkjg"]
+[ext_resource type="Script" path="res://_Core/IMGUI/IMGUI_VBoxContainer.cs" id="4_agcre"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_t0tyk"]
 
@@ -23,6 +25,21 @@ mesh = SubResource("PlaneMesh_t0tyk")
 surface_material_override/0 = SubResource("StandardMaterial3D_5helr")
 
 [node name="Player" parent="." instance=ExtResource("2_senv6")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.69884, 0.715278, 0, -0.715278, 0.69884, 0, 0, 9.51741)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+process_mode = 3
+visible = false
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.4
+anchor_right = 0.6
+anchor_bottom = 0.6
+script = ExtResource("3_lnkjg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+script = ExtResource("4_agcre")
