@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhcj2o82dl8lh"]
+[gd_scene load_steps=11 format=3 uid="uid://dhcj2o82dl8lh"]
 
 [ext_resource type="Texture2D" uid="uid://c1doak7b7pb6g" path="res://Testing/00000.png" id="1_ns0n7"]
-[ext_resource type="PackedScene" uid="uid://c4wfpu1nii1uo" path="res://Assets/Player/player.tscn" id="2_senv6"]
+[ext_resource type="Script" path="res://Assets/Player/player.cs" id="2_b51i8"]
 [ext_resource type="Script" path="res://Testing/PauseScreen.cs" id="3_lnkjg"]
 [ext_resource type="Script" path="res://_Core/IMGUI/IMGUI_VBoxContainer.cs" id="4_agcre"]
 
@@ -10,6 +10,17 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5helr"]
 shading_mode = 0
 albedo_texture = ExtResource("1_ns0n7")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3f5sp"]
+radius = 0.54163
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hyjs"]
+albedo_color = Color(0, 0.133333, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jlonh"]
+material = SubResource("StandardMaterial3D_3hyjs")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ty2af"]
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(0.99992, 0.01201, -0.00397795, -0.0120287, 0.999917, -0.00471079, 0.00392103, 0.00475827, 0.999981, 0, 0, 0)
@@ -25,8 +36,53 @@ transform = Transform3D(16.9465, 0, 0, 0, -3.56321e-07, -8.15167, 0, 8.15167, -3
 mesh = SubResource("PlaneMesh_t0tyk")
 surface_material_override/0 = SubResource("StandardMaterial3D_5helr")
 
-[node name="Player" parent="." instance=ExtResource("2_senv6")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, -1.67347e-09, 0, 1.29148e-10, 1, 0, 0, 0, 1, 0, 0, 0)
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource("2_b51i8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 1.87356e-10, 0, 1.2551e-10, 1, 0, 0, -4.65661e-10, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_3f5sp")
+
+[node name="Player" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 1.63709e-11, 1.2551e-10, -4.37722e-08, 1, 0, -1, -4.42378e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_jlonh")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/Player"]
+transform = Transform3D(0.328036, 3.49246e-10, -3.67663e-09, -6.98492e-10, 0.328036, -1.16415e-10, -9.004e-10, 3.49246e-10, 0.328036, -0.00959338, 0.00375703, 0.797477)
+mesh = SubResource("BoxMesh_ty2af")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, -6.31735e-09, 0, 1.29148e-10, 1, -4.65661e-10, 0, 4.65661e-10, 1, 4.68715, 3.33872, -0.0342656)
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 10.0
+gravity_scale = 0.0
+can_sleep = false
+freeze = true
+freeze_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+transform = Transform3D(1, 1.87356e-10, 0, 1.2551e-10, 1, 0, 0, -4.65661e-10, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_3f5sp")
+
+[node name="Player" type="MeshInstance3D" parent="RigidBody3D2"]
+transform = Transform3D(1, 0, 1.63709e-11, 1.2551e-10, -4.37722e-08, 1, 0, -1, -4.42378e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_jlonh")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2/Player"]
+transform = Transform3D(0.328036, 3.49246e-10, -3.67663e-09, -6.98492e-10, 0.328036, -1.16415e-10, -9.004e-10, 3.49246e-10, 0.328036, -0.00959338, 0.00375703, 0.797477)
+mesh = SubResource("BoxMesh_ty2af")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.69884, 0.715278, 0, -0.715278, 0.69884, 0, 0, 9.51741)

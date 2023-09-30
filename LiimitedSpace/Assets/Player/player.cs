@@ -1,28 +1,35 @@
 using Godot;
 using System;
 
-public partial class player : MeshInstance3D
+public partial class player : RigidBody3D
 {
     [Export] Inputs up = Inputs.key_w, down = Inputs.key_s, left = Inputs.key_a, right = Inputs.key_d;
     [Export] float limitsX = 13f, limitsY = 7f;
     [Export] float speed = 10f;
 
-    Vector3 velocity;
+    MeshInstance3D player_mesh;
+
+    public override void _Ready()
+    {
+        if (!this.TryFind(out player_mesh))
+            Debug.LogError("failed to find player mesh");
+
+    }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double _delta)
+    public override void _PhysicsProcess(double _delta)
     {
         var delta = (float)_delta;
+
         Debug.Label(Position.ToString("0.00")).SetColor(Colors.Black);
-        Debug.DrawArrow3D(GlobalPosition, GlobalTransform.GetForward(), Colors.Yellow);
-        Debug.DrawArrow3D(GlobalPosition, GlobalTransform.GetUp(), Colors.Aqua);
+        Debug.DrawArrow3D(GlobalPosition, player_mesh.GlobalTransform.GetForward(), Colors.Yellow);
 
         var target_direction = GetMousePosition() - Position;
         var current_direction = this.Transform.GetForward();
 
-        Transform = Transform.LookingAt(GlobalPosition - target_direction, Transform.GetUp());
+        player_mesh.GlobalTransform = player_mesh.GlobalTransform.LookingAt(GlobalPosition - target_direction, Vector3.Forward);
 
-       // Debug.DrawArrow3D(GlobalPosition, target_direction, Colors.Orange);
+        // Debug.DrawArrow3D(GlobalPosition, target_direction, Colors.Orange);
 
         var target_velocity = new Vector3();
         if (up.Pressed())
@@ -34,14 +41,25 @@ public partial class player : MeshInstance3D
         if (right.Pressed())
             target_velocity += Vector3.Right;
 
-        velocity = velocity.Lerp(target_velocity, delta * 2f);
-        var target_position = GlobalPosition + velocity * delta * speed;
-        if (target_position.X.Abs() > limitsX)
-            target_position.X = limitsX * Mathf.Sign(target_position.X);
+        target_velocity *= speed;
+        target_velocity = LinearVelocity.Lerp(target_velocity, delta * 2f);
 
-        if (target_position.Y.Abs() > limitsY)
-            target_position.Y = limitsY * Mathf.Sign(target_position.Y);
-        GlobalPosition = target_position;
+        if (target_velocity.X * delta + GlobalPosition.X > limitsX)
+            target_velocity.X = target_velocity.X.MaxValue(-0.1f);
+
+        if (target_velocity.X * delta + GlobalPosition.X < -limitsX)
+            target_velocity.X = target_velocity.X.MinValue(0.1f);
+
+		if (target_velocity.Y * delta + GlobalPosition.Y > limitsY)
+            target_velocity.Y = target_velocity.Y.MaxValue(-0.1f);
+
+        if (target_velocity.Y * delta + GlobalPosition.Y < -limitsY)
+            target_velocity.Y = target_velocity.Y.MinValue(0.1f);
+
+
+        Debug.Label(target_velocity.ToString("0.00")).SetColor(Colors.Red);
+
+        LinearVelocity = target_velocity;
     }
 
     static Vector3 GetMousePosition()
