@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4wfpu1nii1uo"]
+
+[ext_resource type="Script" path="res://Assets/Player/player.cs" id="1_1ch4y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hyjs"]
+albedo_color = Color(0, 0.133333, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jlonh"]
+material = SubResource("StandardMaterial3D_3hyjs")
+
+[node name="Player" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_jlonh")
+script = ExtResource("1_1ch4y")

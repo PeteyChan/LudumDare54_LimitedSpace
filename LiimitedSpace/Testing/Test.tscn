@@ -1,3 +1,28 @@
-[gd_scene format=3 uid="uid://dhcj2o82dl8lh"]
+[gd_scene load_steps=5 format=3 uid="uid://dhcj2o82dl8lh"]
+
+[ext_resource type="Texture2D" uid="uid://c1doak7b7pb6g" path="res://Testing/00000.png" id="1_ns0n7"]
+[ext_resource type="PackedScene" uid="uid://c4wfpu1nii1uo" path="res://Assets/Player/player.tscn" id="2_senv6"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t0tyk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5helr"]
+shading_mode = 0
+albedo_texture = ExtResource("1_ns0n7")
 
 [node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 5.96046e-08, 0, -5.96046e-08, 1, 0, 0, 8.02117)
+projection = 1
+fov = 90.0
+size = 16.0
+
+[node name="Background" type="MeshInstance3D" parent="."]
+transform = Transform3D(16.9465, 0, 0, 0, -3.56321e-07, -8.15167, 0, 8.15167, -3.56321e-07, -2.75079, -0.12875, -63.9171)
+mesh = SubResource("PlaneMesh_t0tyk")
+surface_material_override/0 = SubResource("StandardMaterial3D_5helr")
+
+[node name="Player" parent="." instance=ExtResource("2_senv6")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.69884, 0.715278, 0, -0.715278, 0.69884, 0, 0, 9.51741)
