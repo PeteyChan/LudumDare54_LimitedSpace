@@ -1,12 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4wfpu1nii1uo"]
+[gd_scene load_steps=10 format=3 uid="uid://c4wfpu1nii1uo"]
 
 [ext_resource type="Script" path="res://Assets/Player/player.cs" id="1_isbld"]
-[ext_resource type="PackedScene" uid="uid://b1say5wg8rmso" path="res://Assets/Player/PlayerShip.glb" id="2_5c057"]
+[ext_resource type="Texture2D" uid="uid://dg33vha24p16k" path="res://Assets/Player/Spritesheet.png" id="3_5hlbq"]
+[ext_resource type="PackedScene" uid="uid://b1say5wg8rmso" path="res://Assets/Player/PlayerShip.glb" id="3_vtfib"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3f5sp"]
 radius = 0.54163
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_54fxp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_odccx"]
+atlas = ExtResource("3_5hlbq")
+region = Rect2(0, 0, 256, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thtlw"]
+atlas = ExtResource("3_5hlbq")
+region = Rect2(256, 0, 256, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68xgb"]
+atlas = ExtResource("3_5hlbq")
+region = Rect2(512, 0, 256, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63m10"]
+atlas = ExtResource("3_5hlbq")
+region = Rect2(768, 0, 256, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1vy3b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odccx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thtlw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68xgb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63m10")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
 
 [node name="player" type="RigidBody3D"]
 transform = Transform3D(1, -1.67347e-09, 0, 1.29148e-10, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -27,14 +62,19 @@ shape = SubResource("SphereShape3D_3f5sp")
 current = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.88738e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.00289959, -3.74476e-13, -0.00100684)
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
 
-[node name="Player" parent="MeshInstance3D" instance=ExtResource("2_5c057")]
-transform = Transform3D(-0.635373, 0.00260073, -0.00068271, 0.000746269, 0.00024427, -0.582018, 0.00255474, 0.64674, 0.000222563, 0.0463371, -0.000323182, -0.0697548)
+[node name="PlayerShip" parent="MeshInstance3D" instance=ExtResource("3_vtfib")]
+transform = Transform3D(0.544372, -2.5563e-08, -2.36593e-08, -2.54227e-08, -0.0388359, -0.542985, 2.381e-08, 0.542985, -0.0388359, 0, 0, 0)
 
-[node name="Grabber" type="Area3D" parent="MeshInstance3D/Player"]
-transform = Transform3D(2.99767e-06, 0.00309905, -1.82099, 1.82099, -0.00157071, 3.23986e-07, -0.0015707, -1.82099, -0.00309905, 0.0263248, 0.000499696, 0.0116568)
+[node name="Node3D" type="Node3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 4.44841e-18, 0, 1, 0, -2.33072e-17, 0, 1, 5.01386e-11, -1.69702e-08, -0.388232)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Player/Grabber"]
-transform = Transform3D(0.679004, 0, 0, 4.60916e-30, 0.679004, 0, 0, 0, 0.679004, 0.913674, 0.0095458, -1.74574e-15)
-shape = SubResource("SphereShape3D_54fxp")
+[node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="MeshInstance3D/Node3D"]
+transform = Transform3D(-0.266873, 2.70182e-08, 4.35822e-08, 1.16309e-08, 9.01493e-09, 1, 3.49617e-08, 0.206238, -4.37114e-08, -0.497005, -0.191412, -0.423873)
+sprite_frames = SubResource("SpriteFrames_1vy3b")
+frame = 1
+
+[node name="AnimatedSprite3D3" type="AnimatedSprite3D" parent="MeshInstance3D/Node3D"]
+transform = Transform3D(-0.266873, 2.70182e-08, 4.35822e-08, 1.16309e-08, 9.01493e-09, 1, 3.49617e-08, 0.206238, -4.37114e-08, 0.443369, -0.191413, -0.423873)
+sprite_frames = SubResource("SpriteFrames_1vy3b")
