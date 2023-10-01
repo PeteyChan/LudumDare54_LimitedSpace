@@ -46,7 +46,7 @@ public partial class player : RigidBody3D
                 case Debris debris:
                     if (debris.Mass > 15)
                         SFX.HeavyImpact.Play(Position, .75f);
-                    else SFX.LightImpact.Play(Position, .75f);
+                    else SFX.LightImpact.Play(Position);
                     break;
 
                 case Wall:
@@ -122,7 +122,7 @@ public partial class player : RigidBody3D
 
                 Debug.Label("Dead", state.current_time).SetColor(Colors.Red);
 
-                if (state.current_time > 5f)
+                if (Effects.FadetoBlack(delta * .5f))
                 {
                     GameScenes.GameOver.Load();
                     Debug.Log("Go to Game Over");
@@ -130,6 +130,9 @@ public partial class player : RigidBody3D
                 break;
 
             case PlayerStates.Dash:
+                if (state.entered)
+                    SFX.Boost.Play(Position, .75f);
+
                 burner.Scale = new Vector3(1, 1, 4);
                 dash_timer = 2f;
                 LinearVelocity = player_mesh.GlobalTransform.GetForward() * 20f;

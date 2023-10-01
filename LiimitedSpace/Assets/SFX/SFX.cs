@@ -6,7 +6,8 @@ public enum SFX
 {
     LightImpact,
     HeavyImpact,
-    Explosion
+    Explosion,
+    Boost
 }
 
 public static partial class GameExtensions
@@ -27,6 +28,7 @@ public static partial class GameExtensions
                 SFX.LightImpact => GD.Load<AudioStream>("res://Assets/SFX/LightImpact.wav"),
                 SFX.HeavyImpact => GD.Load<AudioStream>("res://Assets/SFX/HeavyImpact.wav"),
                 SFX.Explosion => GD.Load<AudioStream>("res://Assets/SFX/Explosion.wav"),
+                SFX.Boost => GD.Load<AudioStream>("res://Assets/SFX/Boost.wav"),
                 _ => default
             };
         }

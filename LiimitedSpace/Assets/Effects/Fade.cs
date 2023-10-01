@@ -24,4 +24,25 @@ public static partial class Effects
         return false;
     }
 
+    public static bool FadetoBlack(float delta)
+    {
+        if (!fade.IsValid())
+        {
+            fade = new ColorRect { }.AddToScene();
+            fade.AnchorLeft = 0;
+            fade.AnchorRight = 1;
+            fade.AnchorTop = 0;
+            fade.AnchorBottom = 1;
+            fade.Color = new Color(0, 0, 0, 0);
+        }
+
+        fade.Color = fade.Color.Lerp(Godot.Colors.Black, delta * 5f);
+        if (fade.Color.A > .99f)
+        {
+            fade.Color = Colors.Black;
+            return true;
+        }
+        return false;
+    }
+
 }

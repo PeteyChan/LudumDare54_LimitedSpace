@@ -11,7 +11,7 @@ public static partial class Effects
         node.AddToScene();
 
         //SFX.HeavyImpact.Play(position, size / 3f);
-        SFX.Explosion.Play(position, size / 3f);
+        SFX.Explosion.Play(position, size / 6f + .5f);
         //SFX.HeavyImpact.Play(position);
 
         if (node.TryFind(out AnimatedSprite3D sprite))
