@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dhcj2o82dl8lh"]
+[gd_scene load_steps=20 format=3 uid="uid://dhcj2o82dl8lh"]
 
 [ext_resource type="Texture2D" uid="uid://bdu1vq5d7gche" path="res://Scenes/Game/Background.png" id="1_wbkg0"]
 [ext_resource type="Script" path="res://Testing/Background.cs" id="2_me3yx"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://enwcan801mc8" path="res://Assets/Spawner/spawner.tscn" id="10_7wbop"]
 [ext_resource type="Script" path="res://Testing/BGMPlayer.cs" id="10_otfov"]
 [ext_resource type="Script" path="res://Assets/Spawner/spawner.cs" id="11_i87ds"]
+[ext_resource type="PackedScene" uid="uid://c5myphgkmuioo" path="res://Assets/Grinder/Grinder.glb" id="12_jaetl"]
 [ext_resource type="PackedScene" uid="uid://ceh67f7fscs32" path="res://Assets/Effects/Explosion/explosion.tscn" id="14_y4g5w"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_t0tyk"]
@@ -89,6 +90,9 @@ script = ExtResource("4_agcre")
 
 [node name="Wall" parent="." instance=ExtResource("9_lh5it")]
 
+[node name="MeshInstance3D" parent="Wall" index="1"]
+transform = Transform3D(0.999999, 0.00122035, -5.64475e-05, -0.00122037, 0.999999, -0.000207643, 5.61918e-05, 0.000207713, 1, 0, 1.90735e-06, -4)
+
 [node name="Target" parent="Wall/Node" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.23383, 0)
 
@@ -103,7 +107,10 @@ transform = Transform3D(1, -4.46744e-09, 0, -1.76806e-09, 1, 0, 0, 0, 1, 16.972,
 script = ExtResource("11_i87ds")
 
 [node name="Grinder" parent="." instance=ExtResource("5_kjkj6")]
-transform = Transform3D(0.999998, -2.21626e-08, 0, -1.20344e-08, 1, 0, 9.31323e-10, 0, 1, -13.4913, -0.162044, 0.053672)
+transform = Transform3D(0.999998, -2.49565e-08, 0, -1.29749e-08, 1, 0, 1.39698e-09, 0, 1, -13.4913, -0.162044, 0.053672)
+
+[node name="Grinder2" parent="Grinder" instance=ExtResource("12_jaetl")]
+transform = Transform3D(1.07623, 0, -9.85892e-09, -6.28825e-09, -5.3551e-08, -1.07623, -3.25963e-09, 1.07623, -5.02914e-08, -0.593216, -3.20691, -2.78241)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_wh2u7")
