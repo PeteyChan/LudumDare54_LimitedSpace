@@ -3,6 +3,12 @@ using System;
 
 public partial class player : RigidBody3D
 {
+    static void Win(Debug.Console args)
+    {
+        if (Scene.Current.TryFind(out player player))
+            player.state.next = PlayerStates.Win;
+    }
+
     [Export] Inputs up = Inputs.key_w, down = Inputs.key_s, left = Inputs.key_a, right = Inputs.key_d, dash = Inputs.key_space;
     [Export] float limitsX = 13f, limitsY = 7f;
     [Export] float speed = 10f;
@@ -28,8 +34,13 @@ public partial class player : RigidBody3D
             switch (body)
             {
                 case Grinder:
-                    if (state.current is not PlayerStates.Death)
-                        state.next = PlayerStates.Death;
+                    switch (state.current)
+                    {
+                        case PlayerStates.Death:
+                        case PlayerStates.Win:
+                            break;
+                        default: state.next = PlayerStates.Death; break;
+                    }
                     break;
 
                 case Debris debris:
@@ -48,6 +59,8 @@ public partial class player : RigidBody3D
     PinJoint3D joint;
 
     float dash_timer;
+
+    float timer;
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double _delta)
@@ -90,6 +103,9 @@ public partial class player : RigidBody3D
                 if ((dash_timer -= delta) < 0 && dash.OnPressed())
                     state.next = PlayerStates.Dash;
 
+                if (state.update_time > 180)
+                    state.next = PlayerStates.Win;
+
 
                 burner.Scale = burner.Scale.Lerp(Vector3.One, delta * 5f);
                 break;
@@ -112,17 +128,31 @@ public partial class player : RigidBody3D
                 LinearVelocity = player_mesh.GlobalTransform.GetForward() * 20f;
                 if (state.current_time > .1f)
                     state.next = PlayerStates.Move;
+
+                if (Position.X > limitsX)
+                    Position = new Vector3(limitsX, Position.Y, 0);
                 break;
 
             default:
                 state.next = PlayerStates.Move;
+                break;
+
+            case PlayerStates.Win:
+                CollisionLayer = 0;
+                CollisionMask = 0;
+                LinearVelocity = Vector3.Right * 5f;
+                burner.Scale = new Vector3(1, 1, 4);
+
+                if (Effects.FadeToWhite(delta * .3f))
+                    GameScenes.Win.Load();
+
+                player_mesh.GlobalTransform = player_mesh.GlobalTransform.LookingAt(GlobalPosition - Vector3.Right, Vector3.Forward);
                 break;
         }
 
         void LookAtMouse()
         {
             var target_direction = GetMousePosition() - Position;
-            var current_direction = this.Transform.GetForward();
             player_mesh.GlobalTransform = player_mesh.GlobalTransform.LookingAt(GlobalPosition - target_direction, Vector3.Forward);
         }
     }
@@ -143,4 +173,5 @@ public enum PlayerStates
     Move,
     Death,
     Dash,
+    Win,
 }

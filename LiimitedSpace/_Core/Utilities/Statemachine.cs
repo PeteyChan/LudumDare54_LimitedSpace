@@ -11,6 +11,7 @@ namespace Utils
         public State? next;
         public bool entered => current_time == 0;
         public bool exiting => next != null;
+        public float update_time { get; private set; }
 
         /// <summary>
         /// Returns Current State
@@ -30,6 +31,7 @@ namespace Utils
             {
                 current_time += delta;
             }
+            update_time += delta;
             return current;
         }
 
