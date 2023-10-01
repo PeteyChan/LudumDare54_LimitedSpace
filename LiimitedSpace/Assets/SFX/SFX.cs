@@ -18,7 +18,7 @@ public static partial class GameExtensions
 
         if (!sfx_players[sfx].IsValid())
         {
-            sfx_players[sfx] = new AudioStreamPlayer3D { Name = sfx.ToString() }.AddToScene();
+            sfx_players[sfx] = new AudioStreamPlayer3D { Name = sfx.ToString() , Bus = "SFX"}.AddToScene();
 
             sfx_players[sfx].Stream = sfx switch
             {

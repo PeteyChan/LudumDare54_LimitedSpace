@@ -21,8 +21,6 @@ public partial class PauseScreen : PanelContainer
             pause = !pause;
             GetTree().Paused = pause;
             Visible = pause;
-
-            Debug.Log("pressed", Godot.Engine.GetFramesDrawn(), Inputs.key_escape.CurrentValue(), Inputs.key_escape.PreviousValue());
         }
 
         if (pause)
@@ -39,6 +37,21 @@ public partial class PauseScreen : PanelContainer
                 this.GetTree().Paused = false;
             }
 
+            float master = Godot.AudioServer.GetBusVolumeDb(0);
+            float sfx = Godot.AudioServer.GetBusVolumeDb(1);
+            float bgm = Godot.AudioServer.GetBusVolumeDb(2);
+            float min_volume = -40, max_volume = 0f;
+
+            if (menu.Label("Master").HSlider(master, out master, min: min_volume, max: max_volume))
+                Godot.AudioServer.SetBusVolumeDb(0, master);
+            if (menu.Label("SFX").HSlider(sfx, out sfx, min: min_volume, max: max_volume))
+                Godot.AudioServer.SetBusVolumeDb(1, sfx);
+            if (menu.Label("BGM").HSlider(bgm, out bgm, min: min_volume, max: max_volume))
+                Godot.AudioServer.SetBusVolumeDb(2, bgm);
+
+            Godot.AudioServer.SetBusMute(0, master <= -40f);
+            Godot.AudioServer.SetBusMute(1, sfx <= -40f);
+            Godot.AudioServer.SetBusMute(2, bgm <= -40f);
         }
     }
 }

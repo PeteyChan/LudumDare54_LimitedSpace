@@ -3,7 +3,7 @@ using System;
 
 public partial class player : RigidBody3D
 {
-    [Export] Inputs up = Inputs.key_w, down = Inputs.key_s, left = Inputs.key_a, right = Inputs.key_d;
+    [Export] Inputs up = Inputs.key_w, down = Inputs.key_s, left = Inputs.key_a, right = Inputs.key_d, dash = Inputs.key_space;
     [Export] float limitsX = 13f, limitsY = 7f;
     [Export] float speed = 10f;
     MeshInstance3D player_mesh;
@@ -29,15 +29,21 @@ public partial class player : RigidBody3D
                         SFX.HeavyImpact.Play(Position);
                     else SFX.LightImpact.Play(Position);
                     break;
+
+                case Wall:
+                    SFX.LightImpact.Play(Position);
+                    break;
             }
         };
     }
 
+    PinJoint3D joint;
+
+    float dash_timer;
+
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double _delta)
     {
-        Debug.Label(LinearVelocity.Length()).SetColor(Colors.Black);
-
         var delta = (float)_delta;
         Debug.DrawArrow3D(GlobalPosition, player_mesh.GlobalTransform.GetForward(), Colors.Yellow);
 
@@ -72,6 +78,9 @@ public partial class player : RigidBody3D
 
                 LinearVelocity = target_velocity;
                 LookAtMouse();
+
+                if ((dash_timer -= delta) < 0 && dash.OnPressed())
+                    state.next = PlayerStates.Dash;
                 break;
 
             case PlayerStates.Death:
@@ -84,6 +93,13 @@ public partial class player : RigidBody3D
                     GameScenes.GameOver.Load();
                     Debug.Log("Go to Game Over");
                 }
+                break;
+
+            case PlayerStates.Dash:
+                dash_timer = .5f;
+                LinearVelocity = player_mesh.GlobalTransform.GetForward() * 20f;
+                if (state.current_time > .1f)
+                    state.next = PlayerStates.Move;
                 break;
 
             default:
@@ -114,4 +130,5 @@ public enum PlayerStates
 {
     Move,
     Death,
+    Dash,
 }

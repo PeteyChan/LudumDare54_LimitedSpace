@@ -183,6 +183,7 @@ public static partial class Debug // console
 
         public override void _Ready()
         {
+            ProcessMode = ProcessModeEnum.Always;
             console_data.Load();
             console_window = new IMGUI_Window() { Name = "Debug Console" };
             Tree.Root.AddChild(console_window);

@@ -44,7 +44,7 @@ fov = 90.0
 size = 16.0
 
 [node name="Background" type="MeshInstance3D" parent="."]
-transform = Transform3D(16.9465, 7.45058e-09, -1.46974e-09, -2.69793e-08, -3.65078e-07, -8.15167, 0, 8.15167, -3.57628e-07, -2.75079, -0.12875, -63.9171)
+transform = Transform3D(16.9465, 1.49012e-08, -1.46974e-09, -5.67816e-08, -3.72529e-07, -8.15167, 0, 8.15167, -3.57628e-07, -2.76508, -0.14609, -67.5613)
 mesh = SubResource("PlaneMesh_t0tyk")
 surface_material_override/0 = SubResource("StandardMaterial3D_pylrc")
 script = ExtResource("2_me3yx")
@@ -107,6 +107,7 @@ transform = Transform3D(0.999998, -2.21626e-08, 0, -1.20344e-08, 1, 0, 9.31323e-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_wh2u7")
 volume_db = -22.608
+bus = &"BGM"
 script = ExtResource("10_otfov")
 
 [editable path="Wall"]

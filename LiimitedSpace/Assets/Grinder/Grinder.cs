@@ -7,7 +7,7 @@ public partial class Grinder : AnimatableBody3D
     {
         this.OnProcess(delta =>
         {
-            Position += Vector3.Right * delta * .1f;
+            Position += Vector3.Right * delta * .2f;
         });
 
     }

@@ -1,17 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4wfpu1nii1uo"]
+[gd_scene load_steps=7 format=3 uid="uid://c4wfpu1nii1uo"]
 
 [ext_resource type="Script" path="res://Assets/Player/player.cs" id="1_isbld"]
+[ext_resource type="Texture2D" uid="uid://7wlxepmv0jhu" path="res://Assets/Player/Player.png" id="2_ba70l"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3f5sp"]
 radius = 0.54163
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hyjs"]
-albedo_color = Color(0, 0.133333, 1, 1)
+[sub_resource type="PlaneMesh" id="PlaneMesh_nfsmu"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_jlonh"]
-material = SubResource("StandardMaterial3D_3hyjs")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxxc6"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("2_ba70l")
 
-[sub_resource type="BoxMesh" id="BoxMesh_ty2af"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_54fxp"]
 
 [node name="player" type="RigidBody3D"]
 transform = Transform3D(1, -1.67347e-09, 0, 1.29148e-10, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -21,20 +26,28 @@ axis_lock_angular_y = true
 axis_lock_angular_z = true
 gravity_scale = 0.0
 can_sleep = false
+freeze_mode = 1
 script = ExtResource("1_isbld")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 1.87356e-10, 0, 1.2551e-10, 1, 0, 0, -4.65661e-10, 1, 0, 0, 0)
 shape = SubResource("SphereShape3D_3f5sp")
 
-[node name="Player" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 1.63709e-11, 1.2551e-10, -4.37722e-08, 1, 0, -1, -4.42378e-08, 0, 0, 0)
-mesh = SubResource("BoxMesh_jlonh")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(0.328036, 3.49246e-10, -3.67663e-09, -6.98492e-10, 0.328036, -1.16415e-10, -9.004e-10, 3.49246e-10, 0.328036, -0.00959338, 0.00375703, 0.797477)
-mesh = SubResource("BoxMesh_ty2af")
-
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="Player" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(-0.00587735, 2.62713e-10, 0.581994, 5.58023e-08, 0.646745, 2.36414e-10, 0.635351, -5.68006e-08, 0.00538376, 0.0529666, -4.63049e-09, -0.0529666)
+mesh = SubResource("PlaneMesh_nfsmu")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_rxxc6")
+
+[node name="Grabber" type="Area3D" parent="MeshInstance3D/Player"]
+transform = Transform3D(1.82099, -7.9598e-08, 7.9598e-08, -7.9598e-08, -7.9598e-08, 1.82099, -7.9598e-08, -1.82099, -7.9598e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Player/Grabber"]
+transform = Transform3D(0.679004, 0, 0, 4.60916e-30, 0.679004, 0, 0, 0, 0.679004, 0.913674, 0.0095458, -1.74574e-15)
+shape = SubResource("SphereShape3D_54fxp")

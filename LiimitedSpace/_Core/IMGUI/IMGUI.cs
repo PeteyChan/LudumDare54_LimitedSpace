@@ -173,8 +173,7 @@ public static class IMGUI_Extensions
         output = input;
         var spin_box = self.GetGUIElement<IMGUI_Spinbox>();
         spin_box.TooltipText = tooltip;
-        var updated = spin_box.TryUpdate(input, out var float_output, step);
-        output = output < min ? min : output > max ? max : output;
+        var updated = spin_box.TryUpdate(input, out var float_output, step, min, max);
         if (updated) output = (int)float_output;
         return updated;
     }
@@ -184,8 +183,7 @@ public static class IMGUI_Extensions
         output = input;
         var spin_box = self.GetGUIElement<IMGUI_Spinbox>();
         spin_box.TooltipText = tooltip;
-        var updated = spin_box.TryUpdate(input, out var float_output, step);
-        output = output < min ? min : output > max ? max : output;
+        var updated = spin_box.TryUpdate(input, out var float_output, step, min, max);
         if (updated) output = (float)float_output;
         return updated;
     }
@@ -195,9 +193,68 @@ public static class IMGUI_Extensions
         output = input;
         var spin_box = self.GetGUIElement<IMGUI_Spinbox>();
         spin_box.TooltipText = tooltip;
-        var updated = spin_box.TryUpdate(input, out output, step);
-        output = output < min ? min : output > max ? max : output;
+        var updated = spin_box.TryUpdate(input, out output, step, min, max);
         return updated;
+    }
+
+    public static bool HSlider(this IMGUI_Interface self, int input, out int output, int step = 1, float min = 0, float max = 100)
+    {
+        var slider = self.GetGUIElement<IMGUI_HSlider>();
+        if (slider.TryUpdate(input, out var value, step, min, max))
+        {
+            output = (int)value;
+            return true;
+        }
+        output = input;
+        return false;
+    }
+
+    public static bool HSlider(this IMGUI_Interface self, float input, out float output, float step = .1f, float min = 0, float max = 1)
+    {
+        var slider = self.GetGUIElement<IMGUI_HSlider>();
+        if (slider.TryUpdate(input, out var value, step, min, max))
+        {
+            output = (float)value;
+            return true;
+        }
+        output = input;
+        return false;
+    }
+
+    public static bool HSlider(this IMGUI_Interface self, double input, out double output, double step = .1f, double min = 0, double max = 1)
+    {
+        var slider = self.GetGUIElement<IMGUI_HSlider>();
+        return slider.TryUpdate(input, out output, step, min, max);
+    }
+
+    public static bool VSlider(this IMGUI_Interface self, int input, out int output, int step = 1, float min = 0, float max = 100)
+    {
+        var slider = self.GetGUIElement<IMGUI_VSlider>();
+        if (slider.TryUpdate(input, out var value, step, min, max))
+        {
+            output = (int)value;
+            return true;
+        }
+        output = input;
+        return false;
+    }
+
+    public static bool VSlider(this IMGUI_Interface self, float input, out float output, float step = .1f, float min = 0, float max = 1)
+    {
+        var slider = self.GetGUIElement<IMGUI_VSlider>();
+        if (slider.TryUpdate(input, out var value, step, min, max))
+        {
+            output = (float)value;
+            return true;
+        }
+        output = input;
+        return false;
+    }
+
+    public static bool VSlider(this IMGUI_Interface self, double input, out double output, double step = .1f, double min = 0, double max = 1)
+    {
+        var slider = self.GetGUIElement<IMGUI_VSlider>();
+        return slider.TryUpdate(input, out output, step, min, max);
     }
 
     public static bool Tabs<E>(this IMGUI_Interface self, E input, out E output)
@@ -289,6 +346,8 @@ public static class IMGUI_Extensions
         if (height <= 0) scroll.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
         scroll_panel = scroll;
     }
+
+
 }
 
 namespace Internal.IMGUI
@@ -437,6 +496,98 @@ namespace Internal.IMGUI
         }
     }
 
+    public partial class IMGUI_HSlider : Godot.HSlider
+    {
+        public IMGUI_HSlider()
+        {
+            this.ValueChanged += f =>
+            {
+                new_value = f;
+                foreach (var child in GetChildren(true))
+                    if (child is Control control && control.HasFocus())
+                        control.ReleaseFocus();
+            };
+
+            MinValue = int.MinValue;
+            MaxValue = int.MaxValue;
+            SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        }
+
+        bool init;
+        double? new_value;
+        public bool TryUpdate(double input, out double output, double step, double min, double max)
+        {
+            Step = step;
+            MinValue = min;
+            MaxValue = max;
+
+            if (init)
+            {
+                init = false;
+                Value = output = input;
+                new_value = null;
+                return false;
+            }
+
+            if (new_value.HasValue)
+            {
+                Value = output = new_value.Value;
+                new_value = default;
+                return true;
+            }
+
+            Value = output = input;
+            new_value = default;
+            return false;
+        }
+    }
+
+    public partial class IMGUI_VSlider : Godot.VSlider
+    {
+        public IMGUI_VSlider()
+        {
+            this.ValueChanged += f =>
+            {
+                new_value = f;
+                foreach (var child in GetChildren(true))
+                    if (child is Control control && control.HasFocus())
+                        control.ReleaseFocus();
+            };
+
+            MinValue = int.MinValue;
+            MaxValue = int.MaxValue;
+            SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        }
+
+        bool init;
+        double? new_value;
+        public bool TryUpdate(double input, out double output, double step, double min, double max)
+        {
+            Step = step;
+            MinValue = min;
+            MaxValue = max;
+
+            if (init)
+            {
+                init = false;
+                Value = output = input;
+                new_value = null;
+                return false;
+            }
+
+            if (new_value.HasValue)
+            {
+                Value = output = new_value.Value;
+                new_value = default;
+                return true;
+            }
+
+            Value = output = input;
+            new_value = default;
+            return false;
+        }
+    }
+
     public partial class IMGUI_Spinbox : Godot.SpinBox
     {
         public IMGUI_Spinbox()
@@ -457,9 +608,12 @@ namespace Internal.IMGUI
         double? new_value;
         bool init = true;
 
-        public bool TryUpdate(double input, out double output, double step)
+        public bool TryUpdate(double input, out double output, double step, double min, double max)
         {
             Step = step;
+            MinValue = min;
+            MaxValue = max;
+
             if (init)
             {
                 init = false;
@@ -470,7 +624,7 @@ namespace Internal.IMGUI
 
             if (new_value.HasValue)
             {
-                output = new_value.Value;
+                Value = output = new_value.Value;
                 new_value = default;
                 return true;
             }

@@ -154,7 +154,7 @@ public static partial class Debug
         {
             if (!Godot.Node.IsInstanceValid(immediate_container))
             {
-                var scroll = new Godot.ScrollContainer();
+                var scroll = new Godot.ScrollContainer() { ProcessMode = Node.ProcessModeEnum.Always };
                 scroll.Name = "Debug Viewer";
                 scroll.AnchorRight = 1;
                 scroll.AnchorBottom = 1;
@@ -172,7 +172,7 @@ public static partial class Debug
                 });
 
                 ((SceneTree)Godot.Engine.GetMainLoop())
-                    .Root.AddChild(scroll, false, Node.InternalMode.Front );
+                    .Root.AddChild(scroll, false, Node.InternalMode.Front);
             }
             return immediate_container;
         }
