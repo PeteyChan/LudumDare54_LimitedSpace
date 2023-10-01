@@ -6,6 +6,9 @@ public partial class Debris : RigidBody3D
     static int count;
     static void Updater(Bootstrap.Process args) => Debug.Label("Debris count:", count).SetColor(Colors.Black);
 
+    float size = default;
+
+
     public override void _Notification(int what)
     {
         switch ((long)what)
@@ -19,6 +22,7 @@ public partial class Debris : RigidBody3D
                     switch (body)
                     {
                         case Grinder:
+                            Effects.Explosion(Position, size);
                             QueueFree();
                             break;
                     }
@@ -28,7 +32,7 @@ public partial class Debris : RigidBody3D
                 ConstantForce = new Vector3(System.Random.Shared.Range(-10, -1), System.Random.Shared.Range(-1, 1), 0);
                 if (this.TryFind(out CollisionShape3D shape))
                 {
-                    var size = System.Random.Shared.Range(.5f, 3f);
+                    size = System.Random.Shared.Range(.5f, 3f);
                     shape.Scale = size * Vector3.One;
                     Mass = size * size * 3f;
                 }

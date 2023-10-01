@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://ceh67f7fscs32"]
+
+[ext_resource type="Texture2D" uid="uid://cti2xmef5fxod" path="res://Assets/Effects/Explosion/Spritesheet.png" id="1_lbjdv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1iv6"]
+atlas = ExtResource("1_lbjdv")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rrre"]
+atlas = ExtResource("1_lbjdv")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d13s3"]
+atlas = ExtResource("1_lbjdv")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_newc2"]
+atlas = ExtResource("1_lbjdv")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmjfn"]
+atlas = ExtResource("1_lbjdv")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnncd"]
+atlas = ExtResource("1_lbjdv")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxy2x"]
+atlas = ExtResource("1_lbjdv")
+region = Rect2(256, 512, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cmq7r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1iv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rrre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d13s3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_newc2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmjfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnncd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxy2x")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Explosion" type="Node3D"]
+transform = Transform3D(1, -5.39876e-09, 0, -2.70484e-09, 1, 0, 0, 0, 1, -29.6267, 1.07656, 0.111047)
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.605954, 1.89175e-10, 1.39698e-09, -2.66937e-09, 0.605954, 0, 0, -2.32831e-10, 0.605954, -0.0698051, 0.0453339, 5.79804e-05)
+sprite_frames = SubResource("SpriteFrames_cmq7r")
+frame_progress = 0.0906887

@@ -45,8 +45,8 @@ public partial class player : RigidBody3D
 
                 case Debris debris:
                     if (debris.Mass > 15)
-                        SFX.HeavyImpact.Play(Position);
-                    else SFX.LightImpact.Play(Position);
+                        SFX.HeavyImpact.Play(Position, .75f);
+                    else SFX.LightImpact.Play(Position, .75f);
                     break;
 
                 case Wall:
@@ -112,6 +112,13 @@ public partial class player : RigidBody3D
 
             case PlayerStates.Death:
                 LinearVelocity = LinearVelocity.Lerp(default, delta * 2f);
+
+                if (state.entered)
+                {
+                    player_mesh.Visible = false;
+                    Effects.Explosion(Position, 1);
+                }
+
 
                 Debug.Label("Dead", state.current_time).SetColor(Colors.Red);
 
