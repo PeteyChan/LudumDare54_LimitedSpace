@@ -1,20 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4wfpu1nii1uo"]
+[gd_scene load_steps=5 format=3 uid="uid://c4wfpu1nii1uo"]
 
 [ext_resource type="Script" path="res://Assets/Player/player.cs" id="1_isbld"]
-[ext_resource type="Texture2D" uid="uid://7wlxepmv0jhu" path="res://Assets/Player/Player.png" id="2_ba70l"]
+[ext_resource type="PackedScene" uid="uid://b1say5wg8rmso" path="res://Assets/Player/PlayerShip.glb" id="2_5c057"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3f5sp"]
 radius = 0.54163
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_nfsmu"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxxc6"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-cull_mode = 2
-shading_mode = 0
-albedo_texture = ExtResource("2_ba70l")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_54fxp"]
 
@@ -37,16 +27,13 @@ shape = SubResource("SphereShape3D_3f5sp")
 current = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(1.88738e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.00289959, -3.74476e-13, -0.00100684)
 
-[node name="Player" type="MeshInstance3D" parent="MeshInstance3D"]
-transform = Transform3D(-0.00587735, 2.62713e-10, 0.581994, 5.58023e-08, 0.646745, 2.36414e-10, 0.635351, -5.68006e-08, 0.00538376, 0.0529666, -4.63049e-09, -0.0529666)
-mesh = SubResource("PlaneMesh_nfsmu")
-skeleton = NodePath("../../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_rxxc6")
+[node name="Player" parent="MeshInstance3D" instance=ExtResource("2_5c057")]
+transform = Transform3D(-0.635373, 0.00260073, -0.00068271, 0.000746269, 0.00024427, -0.582018, 0.00255474, 0.64674, 0.000222563, 0.0463371, -0.000323182, -0.0697548)
 
 [node name="Grabber" type="Area3D" parent="MeshInstance3D/Player"]
-transform = Transform3D(1.82099, -7.9598e-08, 7.9598e-08, -7.9598e-08, -7.9598e-08, 1.82099, -7.9598e-08, -1.82099, -7.9598e-08, 0, 0, 0)
+transform = Transform3D(2.99767e-06, 0.00309905, -1.82099, 1.82099, -0.00157071, 3.23986e-07, -0.0015707, -1.82099, -0.00309905, 0.0263248, 0.000499696, 0.0116568)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Player/Grabber"]
 transform = Transform3D(0.679004, 0, 0, 4.60916e-30, 0.679004, 0, 0, 0, 0.679004, 0.913674, 0.0095458, -1.74574e-15)

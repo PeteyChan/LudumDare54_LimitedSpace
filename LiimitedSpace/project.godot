@@ -26,3 +26,7 @@ window/stretch/mode="viewport"
 [dotnet]
 
 project/assembly_name="LiimitedSpace"
+
+[filesystem]
+
+import/fbx/enabled=false
