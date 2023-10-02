@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://1ws8jg0dtajk"]
 
 [ext_resource type="Script" path="res://Title.cs" id="1_tyy4n"]
+[ext_resource type="Texture2D" uid="uid://vniyj48jt8qg" path="res://Scenes/Title/title.png" id="2_827ee"]
 [ext_resource type="Script" path="res://_Core/IMGUI/IMGUI_VBoxContainer.cs" id="2_tx6pp"]
-[ext_resource type="Texture2D" uid="uid://bpytq7ptdkg32" path="res://Scenes/Title/DreamShaper_v7_scifi_industrial_concrete_menu_background_textu_0.jpg" id="3_i7c3b"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_tyy4n")
@@ -11,10 +11,10 @@ script = ExtResource("1_tyy4n")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 projection = 1
 
-[node name="DreamShaperV7ScifiIndustrialConcreteMenuBackgroundTextu0" type="Sprite2D" parent="."]
-position = Vector2(578, 322)
-scale = Vector2(1.51927, 1.29639)
-texture = ExtResource("3_i7c3b")
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_827ee")
 
 [node name="Control" type="VBoxContainer" parent="."]
 anchors_preset = -1
@@ -22,10 +22,10 @@ anchor_left = 0.4
 anchor_top = 0.5
 anchor_right = 0.6
 anchor_bottom = 0.6
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -19.8
+offset_top = -85.0
+offset_right = 19.8
+offset_bottom = 17.2
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_tx6pp")
