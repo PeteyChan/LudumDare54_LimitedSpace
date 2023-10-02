@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://08sosmvjco68"]
+[gd_scene load_steps=3 format=3 uid="uid://08sosmvjco68"]
 
 [ext_resource type="Script" path="res://Scenes/Win/Win.cs" id="1_y3eoe"]
+[ext_resource type="Texture2D" uid="uid://c4opkcsu7hw84" path="res://Scenes/Win/win game.png" id="2_7d867"]
 
 [node name="Win" type="Control"]
 layout_mode = 3
@@ -27,3 +28,8 @@ grow_vertical = 2
 text = "You Win"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="WinGame" type="Sprite2D" parent="."]
+position = Vector2(578.111, 325)
+scale = Vector2(0.601852, 0.601852)
+texture = ExtResource("2_7d867")
