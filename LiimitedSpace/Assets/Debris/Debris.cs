@@ -3,13 +3,7 @@ using System;
 
 public partial class Debris : RigidBody3D
 {
-    static int count;
-    static void Updater(Bootstrap.Process args) => Debug.Label("Debris count:", count).SetColor(Colors.Black);
-
     float size = default;
-
-    
-
 
     public override void _Notification(int what)
     {
@@ -47,14 +41,6 @@ public partial class Debris : RigidBody3D
                         _ => GD.Load<Texture2D>("res://Assets/Debris/DebrisB.png")
                     };
                 }
-                break;
-
-            case NotificationEnterTree:
-                count++;
-                break;
-
-            case NotificationExitTree:
-                count--;
                 break;
         }
     }
