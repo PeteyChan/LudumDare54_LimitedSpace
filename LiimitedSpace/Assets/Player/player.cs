@@ -18,6 +18,8 @@ public partial class player : RigidBody3D
     Area3D grabber;
     Node3D burner;
     Debris grabbed_debris;
+    TractorBeam tractorBeam;
+    float win_time = 200;
 
     public override void _Ready()
     {
@@ -32,6 +34,9 @@ public partial class player : RigidBody3D
 
         if (!player_mesh.TryFind(out grabber))
             Debug.LogError("failed to find grabber area 3D");
+
+        if (!this.TryFind(out tractorBeam))
+            Debug.LogError("failed to find tractor beam");
 
         BodyEntered += (body) =>
         {
@@ -70,7 +75,13 @@ public partial class player : RigidBody3D
     public override void _PhysicsProcess(double _delta)
     {
         var delta = (float)_delta;
+        dash_timer -= delta;
         //Debug.DrawArrow3D(GlobalPosition, player_mesh.GlobalTransform.GetForward(), Colors.Yellow);
+
+        if (state.current is not PlayerStates.Death)
+            if (state.update_time > win_time)
+                state.next = PlayerStates.Win;
+
 
         switch (state.Update(delta))
         {
@@ -104,7 +115,7 @@ public partial class player : RigidBody3D
                 LinearVelocity = target_velocity;
                 LookAtMouse();
 
-                if ((dash_timer -= delta) < 0 && dash.OnPressed())
+                if (dash_timer < 0 && dash.OnPressed())
                     state.next = PlayerStates.Dash;
 
 
@@ -116,9 +127,6 @@ public partial class player : RigidBody3D
                         state.next = PlayerStates.Grabbing;
                     }
                 }
-
-                if (state.update_time > 180)
-                    state.next = PlayerStates.Win;
 
                 burner.Scale = burner.Scale.Lerp(Vector3.One, delta * 5f);
                 break;
@@ -136,9 +144,10 @@ public partial class player : RigidBody3D
                     state.next = PlayerStates.Move;
                     break;
                 }
-                Debug.Label("Grabbing", grabbed_debris);
 
-                Debug.DrawArrow3D(player_mesh.GlobalPosition, player_mesh.GlobalTransform.GetForward(), Colors.Red);
+                tractorBeam.target = grabbed_debris.GlobalPosition;
+
+                //Debug.DrawArrow3D(player_mesh.GlobalPosition, player_mesh.GlobalTransform.GetForward(), Colors.Red);
 
                 grabbed_debris.LinearVelocity = (grabber.GlobalPosition - grabbed_debris.GlobalPosition);
 
@@ -171,8 +180,10 @@ public partial class player : RigidBody3D
 
                 var player_forward = player_mesh.GlobalTransform.GetForward();
                 var debris_forward = grabbed_debris.GlobalPosition - player_mesh.GlobalPosition;
-                Debug.DrawArrow3D(GlobalPosition, player_forward, Colors.Red);
-                Debug.DrawArrow3D(GlobalPosition, debris_forward, Colors.Red);
+
+                //Debug.DrawArrow3D(GlobalPosition, player_forward, Colors.Red);
+                //Debug.DrawArrow3D(GlobalPosition, debris_forward, Colors.Red);
+
                 var angle = player_forward.AngleTo(debris_forward);
 
                 if (Godot.Mathf.RadToDeg(angle) < 45f)
@@ -182,8 +193,6 @@ public partial class player : RigidBody3D
                 if ((dash_timer -= delta) < 0 && dash.OnPressed())
                     state.next = PlayerStates.Dash;
 
-                if (state.update_time > 180)
-                    state.next = PlayerStates.Win;
                 break;
 
             case PlayerStates.Death:
@@ -195,13 +204,9 @@ public partial class player : RigidBody3D
                     Effects.Explosion(Position, 1);
                 }
 
-
-                Debug.Label("Dead", state.current_time).SetColor(Colors.Red);
-
                 if (Effects.FadetoBlack(delta * .5f))
                 {
                     GameScenes.GameOver.Load();
-                    Debug.Log("Go to Game Over");
                 }
                 break;
 

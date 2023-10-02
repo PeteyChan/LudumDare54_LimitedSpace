@@ -8,6 +8,8 @@ public partial class Debris : RigidBody3D
 
     float size = default;
 
+    
+
 
     public override void _Notification(int what)
     {

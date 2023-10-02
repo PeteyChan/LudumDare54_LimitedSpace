@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c4wfpu1nii1uo"]
+[gd_scene load_steps=15 format=3 uid="uid://c4wfpu1nii1uo"]
 
 [ext_resource type="Script" path="res://Assets/Player/player.cs" id="1_isbld"]
 [ext_resource type="Texture2D" uid="uid://dg33vha24p16k" path="res://Assets/Player/Spritesheet.png" id="3_5hlbq"]
 [ext_resource type="PackedScene" uid="uid://b1say5wg8rmso" path="res://Assets/Player/PlayerShip.glb" id="3_vtfib"]
+[ext_resource type="Script" path="res://Assets/Player/TractorBeam.cs" id="4_0dyvi"]
+[ext_resource type="Texture2D" uid="uid://0ql8xmgtsg1g" path="res://Assets/Player/TractorBeam.png" id="5_wt5qu"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3f5sp"]
 radius = 0.54163
@@ -44,7 +46,18 @@ animations = [{
 }]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i6bm3"]
-size = Vector3(1, 1, 2.445)
+size = Vector3(0.474693, 1, 2.445)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_au65f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_53qpc"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0)
+albedo_texture = ExtResource("5_wt5qu")
 
 [node name="player" type="RigidBody3D"]
 transform = Transform3D(1, -1.67347e-09, 0, 1.29148e-10, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -68,7 +81,7 @@ current = true
 transform = Transform3D(1.88738e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
 
 [node name="PlayerShip" parent="MeshInstance3D" instance=ExtResource("3_vtfib")]
-transform = Transform3D(0.544372, 0, -2.08025e-15, -2.08025e-15, 2.37953e-08, -0.544372, 0, 0.544372, 2.37953e-08, 0, 0, 0)
+transform = Transform3D(0.544372, 1.63059e-21, -1.77636e-15, -1.77636e-15, 2.37953e-08, -0.544372, 1.45877e-17, 0.544372, 2.37953e-08, 0, 0, 0)
 
 [node name="Node3D" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 4.44841e-18, 0, 1, 0, -2.33072e-17, 0, 1, 5.01386e-11, -1.69702e-08, -0.388232)
@@ -89,3 +102,12 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Grabber"]
 transform = Transform3D(1, 0, 4.44841e-18, 0, 1, 0, -2.33072e-17, 0, 1, 0, -5.66134e-08, -1.29516)
 shape = SubResource("BoxShape3D_i6bm3")
+
+[node name="TractorBeam" type="Node3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 4.44841e-18, 0, 1, 0, -2.33072e-17, 0, 1, -8.10811e-11, 2.74431e-08, 0.627825)
+script = ExtResource("4_0dyvi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/TractorBeam"]
+transform = Transform3D(0.396772, 0, 4.44841e-18, 0, 1, 0, 1.90495e-17, 0, 1, -1.29146e-10, 4.37114e-08, 1)
+mesh = SubResource("PlaneMesh_au65f")
+surface_material_override/0 = SubResource("StandardMaterial3D_53qpc")
