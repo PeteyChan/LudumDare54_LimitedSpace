@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://1ws8jg0dtajk"]
+[gd_scene load_steps=4 format=3 uid="uid://1ws8jg0dtajk"]
 
 [ext_resource type="Script" path="res://Title.cs" id="1_tyy4n"]
 [ext_resource type="Script" path="res://_Core/IMGUI/IMGUI_VBoxContainer.cs" id="2_tx6pp"]
+[ext_resource type="Texture2D" uid="uid://bpytq7ptdkg32" path="res://Scenes/Title/DreamShaper_v7_scifi_industrial_concrete_menu_background_textu_0.jpg" id="3_i7c3b"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_tyy4n")
@@ -9,6 +10,11 @@ script = ExtResource("1_tyy4n")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 projection = 1
+
+[node name="DreamShaperV7ScifiIndustrialConcreteMenuBackgroundTextu0" type="Sprite2D" parent="."]
+position = Vector2(578, 322)
+scale = Vector2(1.51927, 1.29639)
+texture = ExtResource("3_i7c3b")
 
 [node name="Control" type="VBoxContainer" parent="."]
 anchors_preset = -1
