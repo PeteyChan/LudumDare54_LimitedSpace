@@ -12,5 +12,7 @@ public partial class game_over : Control
 		timer += (float)delta;
 		if (timer > 5f)
 			GameScenes.Title.Load();
+
+		Effects.FadeFromBlack((float)delta);
 	}
 }

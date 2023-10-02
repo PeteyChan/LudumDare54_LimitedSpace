@@ -45,4 +45,24 @@ public static partial class Effects
         return false;
     }
 
+    public static bool FadeFromBlack(float delta)
+    {
+        if (!fade.IsValid())
+        {
+            fade = new ColorRect { }.AddToScene();
+            fade.AnchorLeft = 0;
+            fade.AnchorRight = 1;
+            fade.AnchorTop = 0;
+            fade.AnchorBottom = 1;
+            fade.Color = Colors.Black;
+        }
+
+        fade.Color = fade.Color.Lerp(new Color(0, 0, 0, 0), delta * 5f);
+        if (fade.Color.A < 0)
+        {
+            fade.Color = new Color(0, 0, 0, 0);
+            return true;
+        }
+        return false;
+    }
 }
