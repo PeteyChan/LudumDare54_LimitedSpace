@@ -87,20 +87,6 @@ script = ExtResource("3_lnkjg")
 layout_mode = 2
 script = ExtResource("4_agcre")
 
-[node name="Wall" parent="." instance=ExtResource("9_lh5it")]
-
-[node name="MeshInstance3D" parent="Wall" index="1"]
-transform = Transform3D(0.999999, 0.00122035, -5.64475e-05, -0.00122037, 0.999999, -0.000207643, 5.61918e-05, 0.000207713, 1, 0, 1.90735e-06, -4)
-
-[node name="Target" parent="Wall/Node" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.23383, 0)
-
-[node name="Wall2" parent="." instance=ExtResource("9_lh5it")]
-transform = Transform3D(1, -6.33008e-09, 0, -3.6307e-09, 1, 0, 0, 0, 1, 0.176063, -7.22372, 0.0689517)
-
-[node name="Target" parent="Wall2/Node" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.38706, 0)
-
 [node name="Spawner" parent="." instance=ExtResource("10_7wbop")]
 transform = Transform3D(1, -4.46744e-09, 0, -1.76806e-09, 1, 0, 0, 0, 1, 16.972, 0.203851, -0.0675192)
 script = ExtResource("11_i87ds")
@@ -114,6 +100,14 @@ volume_db = -22.608
 script = ExtResource("10_otfov")
 
 [node name="Explosion" parent="." instance=ExtResource("14_y4g5w")]
+
+[node name="Wall" parent="." instance=ExtResource("9_lh5it")]
+
+[node name="Wall2" parent="." instance=ExtResource("9_lh5it")]
+transform = Transform3D(-0.999969, 3.74105e-05, 0.00784191, 3.72325e-05, -0.999955, 0.00951636, 0.00784191, 0.00951636, 0.999924, 0.168402, -6.58683, 0.0659511)
+
+[node name="Target" parent="Wall2/Node" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.45032, 0)
 
 [editable path="Wall"]
 [editable path="Wall2"]

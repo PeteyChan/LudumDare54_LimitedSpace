@@ -7,7 +7,9 @@ public enum SFX
     LightImpact,
     HeavyImpact,
     Explosion,
-    Boost
+    Boost,
+    LazerShot,
+    LazerShot_Impact,
 }
 
 public static partial class GameExtensions
@@ -29,6 +31,8 @@ public static partial class GameExtensions
                 SFX.HeavyImpact => GD.Load<AudioStream>("res://Assets/SFX/HeavyImpact.wav"),
                 SFX.Explosion => GD.Load<AudioStream>("res://Assets/SFX/Explosion.wav"),
                 SFX.Boost => GD.Load<AudioStream>("res://Assets/SFX/Boost.wav"),
+                SFX.LazerShot => GD.Load<AudioStream>("res://Assets/SFX/LazerShot.wav"),
+                SFX.LazerShot_Impact => GD.Load<AudioStream>("res://Assets/SFX/LazerShot_Impact.wav"),
                 _ => default
             };
         }
@@ -38,5 +42,5 @@ public static partial class GameExtensions
     }
 
     static Utils.EnumMap<SFX, int> sfx_interval = new();
-    static Utils.EnumMap<SFX, AudioStreamPlayer> sfx_players = new ();
+    static Utils.EnumMap<SFX, AudioStreamPlayer> sfx_players = new();
 }

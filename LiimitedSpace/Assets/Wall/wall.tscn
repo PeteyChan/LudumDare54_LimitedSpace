@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dujamj7a7vfsy"]
+[gd_scene load_steps=7 format=3 uid="uid://dujamj7a7vfsy"]
 
 [ext_resource type="Script" path="res://Assets/Wall/Wall.cs" id="1_ob3oh"]
+[ext_resource type="Texture2D" uid="uid://cky7fc0vb5cx5" path="res://Assets/Wall/Wall.png" id="2_xrnn1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8wnjm"]
 friction = 0.0
@@ -8,8 +9,15 @@ friction = 0.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hny1"]
 size = Vector3(30, 1, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_xhkdg"]
-size = Vector3(30, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rairr"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("2_xrnn1")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dycei"]
+material = SubResource("StandardMaterial3D_rairr")
 
 [node name="Wall" type="AnimatableBody3D" node_paths=PackedStringArray("target")]
 transform = Transform3D(1, -4.46744e-09, 0, -2.7012e-09, 1, 0, 0, 0, 1, 0, 7.412, 0)
@@ -21,8 +29,8 @@ target = NodePath("Node/Target")
 shape = SubResource("BoxShape3D_4hny1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, -7.3851e-10, 0, -8.36735e-10, 1, 0, 0, 4.65661e-10, 1, 0, 0, -4)
-mesh = SubResource("BoxMesh_xhkdg")
+transform = Transform3D(-13.9602, 5.20595e-09, -5.37564e-07, -1.15808e-06, 4.4177e-08, 6.48016, 5.06855e-08, 1, -2.83257e-07, 2.48357e-08, 5.55926, -4)
+mesh = SubResource("PlaneMesh_dycei")
 
 [node name="Node" type="Node" parent="."]
 

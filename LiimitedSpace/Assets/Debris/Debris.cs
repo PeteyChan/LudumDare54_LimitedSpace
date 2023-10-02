@@ -3,7 +3,8 @@ using System;
 
 public partial class Debris : RigidBody3D
 {
-    float size = default;
+    public float size = default;
+    public bool destroy = false;
 
     public override void _Notification(int what)
     {
@@ -18,8 +19,7 @@ public partial class Debris : RigidBody3D
                     switch (body)
                     {
                         case Grinder:
-                            Effects.Explosion(Position, size);
-                            QueueFree();
+                            destroy = true;
                             break;
                     }
                 };
@@ -50,5 +50,11 @@ public partial class Debris : RigidBody3D
     {
         if (Position.Length() > 25)
             QueueFree();
+
+        if (destroy)
+        {
+            Effects.Explosion(Position, size);
+            QueueFree();
+        }
     }
 }

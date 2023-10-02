@@ -6,6 +6,7 @@ public partial class TractorBeam : Node3D
     public Vector3? target;
 
     StandardMaterial3D material;
+    AudioStreamPlayer3D audio;
 
     public override void _Ready()
     {
@@ -13,6 +14,9 @@ public partial class TractorBeam : Node3D
         {
             material = mesh.GetSurfaceOverrideMaterial(0) as StandardMaterial3D;
         }
+
+        if (!this.TryFind(out audio))
+            Debug.LogError("Tractor beam couldn't find audio");
     }
 
 
@@ -31,8 +35,15 @@ public partial class TractorBeam : Node3D
             material.AlbedoColor = material.AlbedoColor.Lerp(Colors.White, delta * 5f);
 
             LookAt(target.GetValueOrDefault(), Vector3.Forward);
+
+            if (!audio.Playing)
+                audio.Play();
         }
-        else material.AlbedoColor = material.AlbedoColor.Lerp(new Color(1, 1, 1, 0), delta * 5f);
+        else
+        {
+            material.AlbedoColor = material.AlbedoColor.Lerp(new Color(1, 1, 1, 0), delta * 5f);
+            audio.Stop();
+        }
 
         material.Uv1Offset = material.Uv1Offset.Offset(0, -delta * 4f, 0);
         target = default;

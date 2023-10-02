@@ -10,7 +10,7 @@ public partial class player : RigidBody3D
             player.state.next = PlayerStates.Win;
     }
 
-    [Export] Inputs up = Inputs.key_w, down = Inputs.key_s, left = Inputs.key_a, right = Inputs.key_d, dash = Inputs.key_space, grab = Inputs.mouse_right_click;
+    [Export] Inputs up = Inputs.key_w, down = Inputs.key_s, left = Inputs.key_a, right = Inputs.key_d, dash = Inputs.key_space, grab = Inputs.mouse_right_click, shoot = Inputs.mouse_left_click;
     [Export] float limitsX = 13f, limitsY = 7f;
     [Export] float speed = 10f;
     MeshInstance3D player_mesh;
@@ -20,6 +20,7 @@ public partial class player : RigidBody3D
     Debris grabbed_debris;
     TractorBeam tractorBeam;
     float win_time = 200;
+    float shot_timer = 0;
 
     public override void _Ready()
     {
@@ -76,6 +77,7 @@ public partial class player : RigidBody3D
     {
         var delta = (float)_delta;
         dash_timer -= delta;
+        shot_timer -= delta;
         //Debug.DrawArrow3D(GlobalPosition, player_mesh.GlobalTransform.GetForward(), Colors.Yellow);
 
         if (state.current is not PlayerStates.Death)
@@ -118,6 +120,10 @@ public partial class player : RigidBody3D
                 if (dash_timer < 0 && dash.OnPressed())
                     state.next = PlayerStates.Dash;
 
+                if (shot_timer < 0 && shoot.OnPressed())
+                {
+                    Effects.Shoot(GlobalPosition + player_mesh.GlobalTransform.GetForward() * 1.5f, player_mesh.Transform.GetForward());
+                }
 
                 if (Inputs.mouse_right_click.OnPressed())
                 {

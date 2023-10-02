@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://duyj1lg36u1cc"]
+
+[ext_resource type="Texture2D" uid="uid://7ku64cf74e2x" path="res://Assets/Effects/Shot/ShotImpact.png" id="1_k17u4"]
+[ext_resource type="Script" path="res://Assets/Effects/Shot/ShotImpact.cs" id="1_ov54m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo1v8"]
+atlas = ExtResource("1_k17u4")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhpnl"]
+atlas = ExtResource("1_k17u4")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emfka"]
+atlas = ExtResource("1_k17u4")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agcpj"]
+atlas = ExtResource("1_k17u4")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ddaoc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bo1v8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhpnl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emfka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agcpj")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_ov54m")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ddaoc")
+frame = 3
+frame_progress = 1.0
